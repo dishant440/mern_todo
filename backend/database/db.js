@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 
-
 async function ConnectToDB() {
   try {
     await mongoose.connect("mongodb+srv://dishant:dishant@cluster0.l75zfnv.mongodb.net/TodoApplication");
