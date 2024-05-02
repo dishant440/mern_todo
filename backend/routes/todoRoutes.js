@@ -42,9 +42,7 @@ router.get("/todos/:todoId", async (req, res) => {
 router.put("/completed/:todoId", async (req, res) => {
   const todoId = req.params.todoId;
   try {
-    const todo = await Todo.findById({
-      todoId,
-    });
+    const todo = await Todo.findById(todoId);
     if (!todo) {
       return res.status(404).json({ message: "Todo not found" });
     }
