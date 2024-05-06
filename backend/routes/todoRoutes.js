@@ -1,8 +1,20 @@
 const express = require("express");
 const router = express.Router();
 const { Todo } = require("../database/db");
+const { createTodo, updateTodo } = require("../type");
 
-router.post("/todo", async (req, res) => {
+const validateInput = (schemas) => async (req, res, next) => {
+  try {
+    if (schemas.parse(req.body).success) {
+      next();
+    }
+  } catch (error) {
+    // If validation fails, send a 400 Bad Request response with the validation errors
+    res.status(411).json({ message: "invalid inputs" });
+  }
+};
+
+router.post("/todo", validateInput(createTodo), async (req, res) => {
   //logic to create a todo
   const title = req.body.title;
   const description = req.body.description;
@@ -24,18 +36,23 @@ router.post("/todo", async (req, res) => {
 });
 router.get("/todos/:todoId", async (req, res) => {
   const todoId = req.params.todoId;
-
   try {
-    const getTodo = await Todo.findById(todoId);
+    if (createTodo.parse(todoId).success) {
+      try {
+        const getTodo = await Todo.findById(todoId);
 
-    if (!getTodo) {
-      return res.status(404).json({ message: "Todo not found" });
+        if (!getTodo) {
+          return res.status(404).json({ message: "Todo not found" });
+        }
+
+        res.json({ todo: getTodo });
+      } catch (error) {
+        console.error("Error while fetching todo:", error);
+        res.status(500).json({ message: "Error while fetching todo" });
+      }
     }
-
-    res.json({ todo: getTodo });
   } catch (error) {
-    console.error("Error while fetching todo:", error);
-    res.status(500).json({ message: "Error while fetching todo" });
+    res.json({ message: "Invalid Todo Id" });
   }
 });
 
