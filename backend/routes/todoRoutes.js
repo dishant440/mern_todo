@@ -4,13 +4,17 @@ const { Todo } = require("../database/db");
 const { createTodo, updateTodo } = require("../type");
 
 const validateInput = (schemas) => async (req, res, next) => {
+  console.log(req.body);
+  const reqbody = req.body;
+  const checkparse = schemas.safeParse(reqbody).success;
   try {
-    if (schemas.parse(req.body).success) {
-      next();
+    if (!checkparse) {
+      res.status(400).json({ message: "invalid inputs" });
     }
+    next();
   } catch (error) {
     // If validation fails, send a 400 Bad Request response with the validation errors
-    res.status(411).json({ message: "invalid inputs" });
+    res.status(400).json({ message: "bad request" });
   }
 };
 
@@ -36,6 +40,7 @@ router.post("/todo", validateInput(createTodo), async (req, res) => {
 });
 router.get("/todos/:todoId", async (req, res) => {
   const todoId = req.params.todoId;
+  
   try {
     if (createTodo.parse(todoId).success) {
       try {
@@ -52,7 +57,7 @@ router.get("/todos/:todoId", async (req, res) => {
       }
     }
   } catch (error) {
-    res.json({ message: "Invalid Todo Id" });
+    res.status(400).json({ message: "Invalid Todo Id" });
   }
 });
 

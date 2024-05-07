@@ -6,6 +6,7 @@ const todoRouter = require('./routes/todoRoutes');
 const app = express();
 
 app.use(bodyParser.json());
+
 ConnectToDB();
 app.use('/api',todoRouter)
 
