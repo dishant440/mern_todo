@@ -1,4 +1,4 @@
-export function Todos(){
+export function Todos({todos}){
     return(
         <div style={{
             display: 'flex',
@@ -10,9 +10,13 @@ export function Todos(){
             margin: 'auto', /* Center horizontally */
             padding: '20px', /* Add padding for spacing */
         }}>
-            <h2>Title</h2>
-            <h3>description</h3>
-            <button style={{ marginLeft: 'auto' }}>Mark as completed</button>
+            {todos.map(function(todo){
+                <>
+                    <h2>Title</h2>
+                            <h3>description</h3>
+                            <button style={{ marginLeft: 'auto' }}>Mark as completed</button>
+                </>
+            })}
         </div>
     )
 }
