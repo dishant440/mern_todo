@@ -40,7 +40,7 @@ router.post("/todo", validateInput(createTodo), async (req, res) => {
 });
 router.get("/todos/:todoId", async (req, res) => {
   const todoId = req.params.todoId;
-  
+
   try {
     if (createTodo.parse(todoId).success) {
       try {
@@ -86,6 +86,15 @@ router.get("/completed", async (req, res) => {
   } catch (error) {
     console.error("Error fetching completed todos:", error);
     res.status(500).json({ message: "Something went wrong" });
+  }
+});
+
+router.get("/allTodos", async (req, res) => {
+  try {
+    const todo = await Todo.find({});
+    res.json({ todos: todo });
+  } catch (error) {
+    res.status(500).json({ error: error.message})
   }
 });
 
