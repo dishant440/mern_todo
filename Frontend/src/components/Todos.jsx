@@ -1,4 +1,6 @@
 export function Todos({ todos }) {
+    console.log(todos);
+    
   return (
     <div
       style={{
@@ -12,12 +14,16 @@ export function Todos({ todos }) {
         padding: "20px" /* Add padding for spacing */,
       }}
     >
+
       {todos.map(function (todo) {
-        <>
-          <h2>Title</h2>
-          <h3>description</h3>
-          <button style={{ marginLeft: "auto" }}>Mark as completed</button>
-        </>;
+        // console.log(todo);
+        return (
+          <div key={todo.id}>
+            <h2>{todo.title}</h2>
+            <h3>{todo.description}</h3>
+            <button style={{ marginLeft: "auto" }}>{todo.completed===true?"Completed":"mark as completed"}</button>
+          </div>
+        );
       })}
     </div>
   );
