@@ -18,6 +18,8 @@ const validateInput = (schemas) => async (req, res, next) => {
   }
 };
 
+//route to create a new todo
+
 router.post("/todo", validateInput(createTodo), async (req, res) => {
   //logic to create a todo
   const title = req.body.title;
@@ -38,6 +40,9 @@ router.post("/todo", validateInput(createTodo), async (req, res) => {
     });
   }
 });
+
+// route to get specific todo with a id
+
 router.get("/todos/:todoId", async (req, res) => {
   const todoId = req.params.todoId;
 
@@ -61,6 +66,8 @@ router.get("/todos/:todoId", async (req, res) => {
   }
 });
 
+//route to mark a todo completed in the db
+
 router.put("/completed/:todoId", async (req, res) => {
   const todoId = req.params.todoId;
   try {
@@ -77,6 +84,8 @@ router.put("/completed/:todoId", async (req, res) => {
     message: "Something went wrong";
   }
 });
+
+//route to get the completed todos 
 
 router.get("/completed", async (req, res) => {
   try {
