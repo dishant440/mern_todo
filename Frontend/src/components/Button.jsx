@@ -1,7 +1,11 @@
 import React from 'react'
 
-export default function Button() {
+export default function Button(props) {
   return (
-    <div>Button</div>
+    <div>
+        <button className="">
+          {}
+        </button>
+    </div>
   )
 }
