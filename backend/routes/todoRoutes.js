@@ -46,8 +46,8 @@ router.post("/todo", validateInput(createTodo), async (req, res) => {
 router.get("/todos/:todoId", async (req, res) => {
   const todoId = req.params.todoId;
 
-  try {
-    if (createTodo.parse(todoId).success) {
+ 
+    
       try {
         const getTodo = await Todo.findById(todoId);
 
@@ -59,11 +59,9 @@ router.get("/todos/:todoId", async (req, res) => {
       } catch (error) {
         console.error("Error while fetching todo:", error);
         res.status(500).json({ message: "Error while fetching todo" });
-      }
-    }
-  } catch (error) {
-    res.status(400).json({ message: "Invalid Todo Id" });
-  }
+      
+    
+  } 
 });
 
 //route to mark a todo completed in the db
