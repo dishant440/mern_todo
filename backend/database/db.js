@@ -22,7 +22,28 @@ const todoSchema = new mongoose.Schema({
   },
 });
 
+const userSchema = new mongoose.Schema({
+  username:{
+    type:String,
+    required:true,
+  },
+  firstname:{
+    type:String,
+    required:true,
+  },
+  lastname:{
+    type:String,
+    required:true,
+  },
+  todos:[{
+    type:mongoose.Schema.Types.ObjectId,
+    ref:"Todo"
+  }]
+
+})
+
+
 // Create Todo model
 const Todo = mongoose.model("Todo", todoSchema);
-
+const User = mongoose.model("User", userSchema);
 module.exports = { Todo, ConnectToDB };
