@@ -11,7 +11,8 @@ app.use(bodyParser.json());
 app.use(cors());
 
 ConnectToDB();
-app.use('/api',todoRouter)
+app.use('/api',todoRouter);
+app.use('/api',userRouter);
 
 
 app.listen(3000,()=>console.log('server running on 3000'))

@@ -9,7 +9,14 @@ const updateTodo = zod.object({
   id: zod.string(),
 });
 
+const createUser = zod.object({
+  email:zod.string().email(),
+  firstname:zod.string(),
+  lastname:zod.string(),
+})
+
 module.exports = {
    createTodo,
    updateTodo,
+   createUser
 };

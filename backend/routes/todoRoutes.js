@@ -2,21 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { Todo } = require("../database/db");
 const { createTodo, updateTodo } = require("../type");
-
-const validateInput = (schemas) => async (req, res, next) => {
-  console.log(req.body);
-  const reqbody = req.body;
-  const checkparse = schemas.safeParse(reqbody).success;
-  try {
-    if (!checkparse) {
-      res.status(400).json({ message: "invalid inputs" });
-    }
-    next();
-  } catch (error) {
-    // If validation fails, send a 400 Bad Request response with the validation errors
-    res.status(400).json({ message: "bad request" });
-  }
-};
+const {validateInput} = require('../validateInput');
 
 //route to create a new todo
 
@@ -46,8 +32,6 @@ router.post("/todo", validateInput(createTodo), async (req, res) => {
 router.get("/todos/:todoId", async (req, res) => {
   const todoId = req.params.todoId;
 
- 
-    
       try {
         const getTodo = await Todo.findById(todoId);
 
