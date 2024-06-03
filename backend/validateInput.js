@@ -12,4 +12,4 @@ const validateInput = (schemas) => async (req, res, next) => {
     }
   };
 
-  module.exports = validateInput;
+  module.exports = {validateInput};
