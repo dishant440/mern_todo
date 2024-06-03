@@ -25,7 +25,7 @@ router.post("/signup", validateInput(createUser), async (req, res) => {
         email: req.body.email,
         firstname: req.body.firstname,
         lastname: req.body.lastname,
-        password: hashedPassword, // Store the hashed password
+        password: hashedPassword, 
       });
 
       const token = jwt.sign(
