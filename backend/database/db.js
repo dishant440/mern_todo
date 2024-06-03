@@ -46,4 +46,4 @@ const userSchema = new mongoose.Schema({
 // Create Todo model
 const Todo = mongoose.model("Todo", todoSchema);
 const User = mongoose.model("User", userSchema);
-module.exports = { Todo, ConnectToDB };
+module.exports = { Todo, ConnectToDB,User };
