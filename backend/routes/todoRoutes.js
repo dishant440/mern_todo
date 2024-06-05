@@ -1,28 +1,35 @@
 const express = require("express");
 const router = express.Router();
-const { Todo } = require("../database/db");
-const { createTodo, updateTodo } = require("../type");
-const {validateInput} = require('../validateInput');
+const { Todo, User } = require("../database/db");
+const { authmiddleware } = require("../Middleware");
 
 //route to create a new todo
 
-router.post("/todo", validateInput(createTodo), async (req, res) => {
-  //logic to create a todo
-  const title = req.body.title;
-  const description = req.body.description;
+router.post("/create", authmiddleware, async (req, res) => {
+  const { title, description } = req.body;
+  const userId = req.userId;
   try {
     const newTodo = await Todo.create({
       title: title,
       description: description,
       completed: false,
     });
+
+    try {
+      const user = await User.findById(userId);
+      await user.todos.push(newTodo._id);
+      await user.save();
+    } catch (error) {
+      return res.json({ message: error.message });
+    }
+
     res.json({
       todoId: newTodo._id,
       message: "Todo created Successfully",
     });
   } catch (error) {
     res.json({
-      message: "something went wrong....",
+      message: error.message,
     });
   }
 });
@@ -32,20 +39,18 @@ router.post("/todo", validateInput(createTodo), async (req, res) => {
 router.get("/todos/:todoId", async (req, res) => {
   const todoId = req.params.todoId;
 
-      try {
-        const getTodo = await Todo.findById(todoId);
+  try {
+    const getTodo = await Todo.findById(todoId);
 
-        if (!getTodo) {
-          return res.status(404).json({ message: "Todo not found" });
-        }
+    if (!getTodo) {
+      return res.status(404).json({ message: "Todo not found" });
+    }
 
-        res.json({ todo: getTodo });
-      } catch (error) {
-        console.error("Error while fetching todo:", error);
-        res.status(500).json({ message: "Error while fetching todo" });
-      
-    
-  } 
+    res.json({ todo: getTodo });
+  } catch (error) {
+    console.error("Error while fetching todo:", error);
+    res.status(500).json({ message: "Error while fetching todo" });
+  }
 });
 
 //route to mark a todo completed in the db
@@ -67,7 +72,7 @@ router.put("/completed/:todoId", async (req, res) => {
   }
 });
 
-//route to get the completed todos 
+//route to get the completed todos
 
 router.get("/completed", async (req, res) => {
   try {
@@ -85,7 +90,7 @@ router.get("/allTodos", async (req, res) => {
     const todo = await Todo.find({});
     res.json({ todos: todo });
   } catch (error) {
-    res.status(500).json({ error: error.message})
+    res.status(500).json({ error: error.message });
   }
 });
 
