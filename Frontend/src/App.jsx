@@ -1,9 +1,9 @@
 import "./App.css";
-import Signup from "./Pages/Signup"
+import Signin from "./Pages/Signin"
 function App() {
   return(
     <>
-      <Signup />
+      <Signin />
     </>
   )
  

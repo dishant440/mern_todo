@@ -28,7 +28,7 @@ function Signup() {
         "Authorization"
       ] = `Bearer ${response.data.token}`;
     } catch (err) {
-      setError("Error in sign up");
+      setError("Error signing up");
     }
   };
 
@@ -37,7 +37,7 @@ function Signup() {
       <div className="w-full max-w-sm p-8 bg-white shadow-md rounded-lg">
         <div className="mb-6 text-center">
           <h1 className="text-3xl font-bold">Sign Up</h1>
-          <p className="text-gray-600">Create your account</p>
+          <p className="text-gray-600 mt-2">Create your account</p>
         </div>
         {error && <div className="mb-4 text-red-500">{error}</div>}
         <form onSubmit={handleSignup}>
@@ -49,7 +49,7 @@ function Signup() {
         </form>
         <p className="text-gray-600 pt-2 text-center">
           Already have an account?{" "}
-          <span className="underline cursor-pointer">Sign In</span>
+          <span className="underline cursor-pointer text-blue-400 ">Sign In</span>
         </p>
       </div>
     </div>
