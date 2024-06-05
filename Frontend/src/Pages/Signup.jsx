@@ -18,7 +18,7 @@ function Signup() {
         {
           firstname,
           lastname,
-          username,
+          email,
           password,
         }
       );

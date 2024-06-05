@@ -6,16 +6,15 @@ import Button from "../components/Button";
 function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/v1/user/signup",
+        "http://localhost:3000/api/v1/user/signin",
         {
-          firstname,
-          lastname,
-          username,
+          email,
           password,
         }
       );
@@ -39,9 +38,7 @@ function Signup() {
 
         {error && <div className="mb-4 text-red-500">{error}</div>}
         <form onSubmit={handleSignup}>
-          <Input
-            name={"Email"}
-            onChange={(e) => setEmail(e.target.value)} />
+          <Input name={"Email"} onChange={(e) => setEmail(e.target.value)} />
           <Input
             name={"Password"}
             onChange={(e) => setPassword(e.target.value)}
