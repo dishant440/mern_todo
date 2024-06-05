@@ -1,11 +1,10 @@
 import "./App.css";
-import Dashboard from "./Pages/Dashboard";
-
+import {Signup} from "./Pages/Signup.jsx";
 
 function App() {
   return(
     <>
-        <Dashboard/>
+      <Signup/>
     </>
   )
  
