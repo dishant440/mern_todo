@@ -6,7 +6,7 @@ export default function Button(props) {
       type={props.Type}
       className="w-full bg-blue-700 mt-4 text-white py-2 px-4 rounded-md hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
     >
-      {props.Value}
+      {props.value}
     </button>
   );
 }

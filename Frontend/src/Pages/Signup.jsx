@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import axios from "axios";
 import Input from "../components/Input";
 import Button from "../components/Button";
+import {useNavigate} from "react-router-dom"
 
 function Signup() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [firstname, setFirstname] = useState("");
@@ -14,7 +16,7 @@ function Signup() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/v1/user/signup",
+        "http://localhost:3000/api/user/signup",
         {
           firstname,
           lastname,
@@ -24,9 +26,8 @@ function Signup() {
       );
 
       localStorage.setItem("token", response.data.token);
-      axios.defaults.headers.common[
-        "Authorization"
-      ] = `Bearer ${response.data.token}`;
+      axios.defaults.headers.common["Authorization"] = `Bearer ${response.data.token}`;
+      navigate("/signin")
     } catch (err) {
       setError("Error signing up");
     }
@@ -41,11 +42,11 @@ function Signup() {
         </div>
         {error && <div className="mb-4 text-red-500">{error}</div>}
         <form onSubmit={handleSignup}>
-          <Input name={"First Name"} />
-          <Input name={"Last Name"} />
-          <Input name={"Email"} />
-          <Input name={"Password"} />
-          <Button Type = {"submit"} Value = "Sign Up" />
+          <Input label="First Name" name="firstname" value={firstname} onChange={(e) => setFirstname(e.target.value)} />
+          <Input label="Last Name" name="lastname" value={lastname} onChange={(e) => setLastname(e.target.value)} />
+          <Input label="Email" type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+          <Input label="Password" type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+          <Button type="submit" value="Sign Up" />
         </form>
         <p className="text-gray-600 pt-2 text-center">
           Already have an account?{" "}
