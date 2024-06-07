@@ -4,7 +4,7 @@ import {Button,Input} from "../components/index";
 import {useNavigate} from "react-router-dom";
 
 
-function Signup() {
+function Signin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -48,6 +48,7 @@ function Signup() {
             name="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            Placeholder="Email"
           />
           <Input
             label="Password"
@@ -55,6 +56,7 @@ function Signup() {
             name="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            Placeholder="password"
           />
           <Button Type={"submit"} value="Sign In" />
         </form>
@@ -71,4 +73,4 @@ function Signup() {
   );
 }
 
-export default Signup;
+export default Signin;

@@ -42,11 +42,36 @@ function Signup() {
         </div>
         {error && <div className="mb-4 text-red-500">{error}</div>}
         <form onSubmit={handleSignup}>
-          <Input label="First Name" name="firstname" value={firstname} onChange={(e) => setFirstname(e.target.value)} />
-          <Input label="Last Name" name="lastname" value={lastname} onChange={(e) => setLastname(e.target.value)} />
-          <Input label="Email"
-           onChange={(e) => setEmail(e.target.value)} />
-          <Input label="Password" type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+          <Input 
+          label="First Name"
+          name="firstname" 
+          value={firstname} 
+          onChange={(e) => setFirstname(e.target.value)} 
+          Placeholder = "FirstName"
+          />
+          
+          <Input 
+          label="Last Name" 
+          name="lastname" 
+          value={lastname} 
+          onChange={(e) => setLastname(e.target.value)} 
+          Placeholder = "LastName"
+          />
+
+          <Input 
+          label="Email"
+          onChange={(e) => setEmail(e.target.value)} 
+          Placeholder = "Email"
+          />
+
+          <Input 
+          label="Password" 
+          type="password" 
+          name="password" 
+          value={password} 
+          onChange={(e) => setPassword(e.target.value)} 
+          Placeholder = "*****"
+          />
           <Button type="submit" value="Sign Up" />
         </form>
         <p className="text-gray-600 pt-2 text-center">
