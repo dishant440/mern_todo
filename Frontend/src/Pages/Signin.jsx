@@ -2,11 +2,16 @@ import React, { useState } from "react";
 import axios from "axios";
 import Input from "../components/Input";
 import Button from "../components/Button";
+import {useNavigate} from "react-router-dom";
+
 
 function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const navigate = useNavigate();
+
+
 
   const handleSignup = async (e) => {
     e.preventDefault();
@@ -38,16 +43,29 @@ function Signup() {
 
         {error && <div className="mb-4 text-red-500">{error}</div>}
         <form onSubmit={handleSignup}>
-          <Input name={"Email"} onChange={(e) => setEmail(e.target.value)} />
           <Input
-            name={"Password"}
+            label="Email"
+            type="email"
+            name="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <Input
+            label="Password"
+            type="password"
+            name="password"
+            value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <Button Type={"submit"} Value="Sign In" />
+          <Button Type={"submit"} value="Sign In" />
         </form>
         <p className="text-gray-600 pt-2 text-center">
           Don't have an account?{" "}
-          <span className="underline cursor-pointer text-black ">Sign Up</span>
+          <span className="underline cursor-pointer text-black "
+            onClick={()=>{
+              navigate("/signup")
+            }}
+          >Sign Up</span>
         </p>
       </div>
     </div>

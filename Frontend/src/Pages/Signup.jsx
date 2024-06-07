@@ -34,7 +34,7 @@ function Signup() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-blue-300">
+    <div className="flex justify-center items-center min-h-screen bg-blue-200">
       <div className="w-full max-w-sm p-8 bg-white shadow-md rounded-lg">
         <div className="mb-6 text-center">
           <h1 className="text-3xl font-bold">Sign Up</h1>
@@ -44,13 +44,16 @@ function Signup() {
         <form onSubmit={handleSignup}>
           <Input label="First Name" name="firstname" value={firstname} onChange={(e) => setFirstname(e.target.value)} />
           <Input label="Last Name" name="lastname" value={lastname} onChange={(e) => setLastname(e.target.value)} />
-          <Input label="Email" type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+          <Input label="Email"
+           onChange={(e) => setEmail(e.target.value)} />
           <Input label="Password" type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} />
           <Button type="submit" value="Sign Up" />
         </form>
         <p className="text-gray-600 pt-2 text-center">
           Already have an account?{" "}
-          <span className="underline cursor-pointer text-blue-400 ">Sign In</span>
+          <span className="underline cursor-pointer text-blue-400 "
+            onClick={() => navigate("/signin")}
+          >Sign In</span>
         </p>
       </div>
     </div>
