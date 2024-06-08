@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {TodoDescription} from '../index';
+import { TodoDescription, Button } from '../index';
 
 export default function Todo() {
   const [showDescription, setShowDescription] = useState(false);
@@ -12,16 +12,20 @@ export default function Todo() {
 
   return (
     <div className="bg-yellow-200 flex flex-col p-4 mt-4 rounded-md shadow-md w-full">
-      <div className="flex justify-between items-center">
-        <ol className="list-decimal list-inside space-y-2">
-          <li>Go to Home</li>
-        </ol>
-        <button
-          className="ml-2 bg-blue-500 text-white p-1 rounded"
-          onClick={handleToggleDescription}
-        >
-          {showDescription ? 'Hide' : 'Show'} Description
-        </button>
+      <div className="flex justify-between items-center mt-2">
+        <div className="flex-1">
+          <ol className="list-decimal list-inside space-y-2">
+            <li className="whitespace-normal">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi cumque rem omnis sequi commodi at dicta assumenda facilis quidem aliquid. </li>
+          </ol>
+        </div>
+        <div className="flex items-center ml-4">
+          <Button
+            onClick={handleToggleDescription}
+            value={showDescription ? 'Hide Description' : 'Show Description'}
+            classname="mx-2"
+          />
+          <Button Type="submit" value="X" classname="w-[50px]" />
+        </div>
       </div>
       <TodoDescription description={todoDescription} isVisible={showDescription} />
     </div>
