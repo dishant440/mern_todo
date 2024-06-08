@@ -2,21 +2,24 @@ import React, { useState } from "react";
 import axios from "axios";
 import {Button,Input} from "../components/index";
 import {useNavigate} from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 
 function Signin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
   const navigate = useNavigate();
 
 
 
   const handleSignup = async (e) => {
     e.preventDefault();
+    const toastId = toast.loading("Signing in...");
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/v1/user/signin",
+        "http://localhost:3000/api/user/signin",
         {
           email,
           password,
@@ -27,8 +30,24 @@ function Signin() {
       axios.defaults.headers.common[
         "Authorization"
       ] = `Bearer ${response.data.token}`;
+      toast.update(toastId, {
+        render: "Signin successful!",
+        type: "success",
+        isLoading: false,
+        autoClose: 3000,
+      });
+
+      setTimeout(() => {
+        navigate("/");
+      }, 2000); 
     } catch (err) {
-      setError("Error signing in");
+      toast.update(toastId, {
+        render: err.response?.data?.message || "Error signing up",
+        type: "error",
+        isLoading: false,
+        autoClose: 2000,
+      });
+    
     }
   };
 
@@ -40,7 +59,7 @@ function Signin() {
           <p className="text-gray-600 mt-2">Create your account</p>
         </div>
 
-        {error && <div className="mb-4 text-red-500">{error}</div>}
+      
         <form onSubmit={handleSignup}>
           <Input
             label="Email"
@@ -58,17 +77,18 @@ function Signin() {
             onChange={(e) => setPassword(e.target.value)}
             Placeholder="password"
           />
-          <Button Type={"submit"} value="Sign In" />
+           <Button type="submit" value="Sign In" />
         </form>
         <p className="text-gray-600 pt-2 text-center">
           Don't have an account?{" "}
           <span className="underline cursor-pointer text-black "
             onClick={()=>{
               navigate("/signup")
-            }}
+            }} 
           >Sign Up</span>
         </p>
       </div>
+      <ToastContainer />
     </div>
   );
 }
