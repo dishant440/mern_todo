@@ -56,7 +56,7 @@ function Signin() {
       <div className="w-full max-w-sm p-8 bg-white shadow-md rounded-lg">
         <div className="mb-6 text-center">
           <h1 className="text-3xl font-bold">Sign In</h1>
-          <p className="text-gray-600 mt-2">Create your account</p>
+          <p className="text-gray-600 mt-2">Login to your account</p>
         </div>
 
       
